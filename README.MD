@@ -1,7 +1,6 @@
 # Thư viện sách (Library)
 ## Giới thiệu
-* Chương trình Đạo cụ khu tà diệt quỷ giúp người dùng quản lý thông tin đạo cụ và tổng sức mạnh khi kết hợp các đạo cụ một cách dễ dàng, giao diện không thân thiện nên dùng java swing để nâng cấp UI.
-* Sản phẩm này lấy cảm hứng từ ứng dụng khác cũng là quản lý sản phẩm nhưng nghiệp vụ nó lạ lắm.
+* ...
 * Đây chỉ là một sản phẩm đơn giản mang tính chất hư cấu được viết trong vài ba ngày còn nhiều lỗi nói chung là dùng được.
 
 ## Thiết kế dữ liệu
@@ -21,14 +20,15 @@
 			* edit phiếu
 			* remove phiếu
 			* find và display theo: tên người đọc, số lượng đầu sách giảm dần
-	* model
+	* model:
 		* Book: abstract class
 			* ProgrammingBook: Class
 			* FictionBook: Class
 			* NovelBook: Class
 		* Member: interface
 			* InternalMember: Class
-			* ExternalMember: Class
+			* ExternalMember: Class (implements IDepositMoney)
+			* IDepositMoney: interface
 		* Order: Class
 
 	* storage:
@@ -45,10 +45,13 @@
 			* IReadWriteData extends IGenericReadWriteData<Order>
 			* ReadWriteFile implements IReadWriteData
 			* ReadWriteFileExcel implements IReadWriteData
-	* views
+
+	* views:
+		* Main
+		* system: RunByManager, RunByMember
 
 ## Các chức năng của thư viện:
-	* Thủ thư:
+	* (Manager) Nhân viên quản lý:
 		1. Thêm sách vào thư viện
 		2. In ra list book
 		3. Thêm người dùng vào thư viện
@@ -57,8 +60,9 @@
 		6. In ra list order
 		7. Sắp xếp danh sách trên theo: tên người đọc, số lượng đầu sách giảm dần
 		8. Tìm kiếm và hiển thị Order theo tên người đọc
-	* Người mượn:
-		1. Login
+	* (Member) Người mượn:
+		1. Login/Đăng ký tài khoản/Đăng xuất
 		2. Sửa thông tin cá nhân member
 		3. Hiển thị các đầu sách đang mượn
+		4. Hiển thị các đầu sách có thể mượn
 
