@@ -1,4 +1,4 @@
-package Views;
+package views;
 
 public class Client {
     public static void main(String[] args) {

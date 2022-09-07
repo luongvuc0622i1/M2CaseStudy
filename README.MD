@@ -25,7 +25,7 @@
 			* ProgrammingBook: Class
 			* FictionBook: Class
 			* NovelBook: Class
-		* Member: interface
+		* Member: abstract class
 			* InternalMember: Class
 			* ExternalMember: Class (implements IDepositMoney)
 			* IDepositMoney: interface
@@ -65,4 +65,5 @@
 		2. Sửa thông tin cá nhân member
 		3. Hiển thị các đầu sách đang mượn
 		4. Hiển thị các đầu sách có thể mượn
+        5. Tạo phiếu mượn sách
 
