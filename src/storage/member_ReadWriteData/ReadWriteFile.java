@@ -1,6 +1,6 @@
-package storage.book_ReadWriteData;
+package storage.member_ReadWriteData;
 
-import model.book.Book;
+import model.member.Member;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,11 +18,11 @@ public class ReadWriteFile implements IReadWriteData {
     }
 
     @Override
-    public void writeData(List<Book> bookList) {
+    public void writeData(List<Member> memberList) {
         try {
-            FileOutputStream fos = new FileOutputStream("bookList.txt");
+            FileOutputStream fos = new FileOutputStream("memberList.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(bookList);
+            oos.writeObject(memberList);
             oos.close();
             fos.close();
         } catch (FileNotFoundException e) {
@@ -32,26 +32,26 @@ public class ReadWriteFile implements IReadWriteData {
         }
     }
     @Override
-    public List<Book> readData() {
-        List<Book> bookList = new ArrayList<>();
+    public List<Member> readData() {
+        List<Member> memberList = new ArrayList<>();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("bookList.txt");
+            fis = new FileInputStream("memberList.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object obj = ois.readObject();
-            bookList = (List<Book>) obj;
-            return bookList;
+            memberList = (List<Member>) obj;
+            return memberList;
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void writeData(List<Book> bookList, String path) {
+    public void writeData(List<Member> memberList, String path) {
         try {
             FileOutputStream fos = new FileOutputStream(path);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(bookList);
+            oos.writeObject(memberList);
             oos.close();
             fos.close();
         } catch (FileNotFoundException e) {
@@ -61,15 +61,15 @@ public class ReadWriteFile implements IReadWriteData {
         }
     }
     @Override
-    public List<Book> readData(String path) {
-        List<Book> bookList = new ArrayList<>();
+    public List<Member> readData(String path) {
+        List<Member> memberList = new ArrayList<>();
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(path);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object obj = ois.readObject();
-            bookList = (List<Book>) obj;
-            return bookList;
+            memberList = (List<Member>) obj;
+            return memberList;
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
