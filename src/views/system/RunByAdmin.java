@@ -4,17 +4,24 @@ import controller.BookManager;
 import controller.MemberManager;
 import controller.OrderManager;
 import model.book.Book;
+import model.book.FictionBook;
+import model.book.NovelBook;
+import model.book.ProgrammingBook;
 import model.member.Member;
 import model.order.Order;
 import storage.IGenericReadWriteData;
 import storage.admin_ReadWriteData.ReadWriteFile;
 import views.Login;
+import views.Validate;
 
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class RunByAdmin {
+    private static Validate validate = Validate.getInstance();
+
+    private static BookManager bookManager = new BookManager();
 //    private static List<Book> bookList = BookManager.bookList;
 //    private static List<Member> memberList = MemberManager.memberList;
 //    private static List<Order> orderList = OrderManager.orderList;
@@ -41,60 +48,13 @@ public class RunByAdmin {
                 System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
                 int choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
-//                    case 1:
-//                        addBook();
-//                        break;
-//                    case 2:
+                    case 1:
+                        Book book = creatNewBook();
+                        bookManager.addNewBook(book);
+                        break;
+                    case 2:
 //                        menuEditBook();
-//                        break;
-//                    case 3:
-//                        try {
-//                            System.out.print("Nhập username người dùng: ");
-//                            String nameOfUser = scanner.nextLine();
-//                            nameOfUser1.delete(0,1);
-//                            nameOfUser1.append(nameOfUser);
-//                            List<Product> temp = readWriteData.readData(nameOfUser1.toString() + ".data") ;
-//                            for (Product x : temp) {
-//                                productManager.addProduct(x, nameOfUser1.toString() + ".data");
-//                            }
-//                            productManager.showProductInCart();
-//                            System.out.print("[\uD83D\uDD0E] Nhập mã ID sản phẩm muốn sửa: ");
-//                            String id = scanner.nextLine();
-//                            if (productManager.checkIdOfCart(id) != -1) {
-//                                int idex = productManager.checkIdOfCart(id);
-//                                editProductInCartUser(idex);
-//                                System.out.println("[\uD83D\uDC4C] Đã cập nhật thông tin sản phẩm");
-//                            } else if (productManager.checkIdOfCart(id) == -1) {
-//                                System.out.println("[❌] Không có mã ID trên");
-//                                System.out.println("---------------------------------------------------");
-//                            }
-//                        } catch (InputMismatchException e) {
-//                            System.out.println("[❌] Sai kiểu dữ liệu");
-//                            System.out.println("---------------------------------------------------");
-//                        }
-//                        break;
-//                    case 4:
-//                        System.out.print("Nhập username người dùng: ");
-//                        String nameOfUser = scanner1.nextLine();
-//                        nameOfUser1.delete(0,1);
-//                        nameOfUser1.append(nameOfUser);
-//                        List<Product> temp = readWriteData.readData(nameOfUser1.toString() + ".data") ;
-//                        for (Product x : temp) {
-//                            productManager.addProduct(x, nameOfUser1.toString() + ".data");
-//                        }
-//                        productManager.showProductInCart();
-//                        deleteProductInCart();
-//                        break;
-//                    case 5:
-//                        System.out.println("Nhập username của khách hàng");
-//                        String name = scanner1.nextLine();
-//                        if (name.equals(RunShopByUser.usernameInShop.toString())) {
-//                            productManager.showProductInCart();
-//                        }
-//                        break;
-//                    case 6:
-//                        managerUser();
-//                        break;
+                        break;
                     case 0:
                         System.out.println("[\uD83D\uDD10] Đã thoát khỏi hệ thống ADMIN !!!");
                         System.out.println("_______________________________________________");
@@ -110,5 +70,49 @@ public class RunByAdmin {
             System.out.println("_______________________________________________");
             menuOfAdmin();
         }
+    }
+
+    private static Book creatNewBook() {
+        Book book = null;
+        try {
+            System.out.println("Nhập thông tin 1 cuốn sách mới");
+            System.out.println("_______________________________________________");
+            String bookId;
+            do {
+                Scanner input1 = new Scanner(System.in);
+                System.out.println("Nhập vào mã đầu sách: ");
+                bookId = input1.nextLine();
+            } while (!validate.validateBookID(bookId));
+            Scanner input2 = new Scanner(System.in);
+            System.out.println("Nhập vào tên đầu sách: ");
+            String bookName = input2.nextLine();
+            Scanner input3 = new Scanner(System.in);
+            System.out.println("Nhập vào tên tác giả: ");
+            String author = input3.nextLine();
+            Scanner input4 = new Scanner(System.in);
+            System.out.println("Nhập vào năm xuất bản: ");
+            int publishYear = Integer.parseInt(input4.nextLine());
+            Scanner input5 = new Scanner(System.in);
+            System.out.println("Nhập vào số lượng đầu sách: ");
+            int amount = Integer.parseInt(input5.nextLine());
+            Scanner input6 = new Scanner(System.in);
+            System.out.println("Nhập vào giá sách: ");
+            int price = Integer.parseInt(input6.nextLine());
+            Scanner input7 = new Scanner(System.in);
+            System.out.print("Nhập loại sách ( 1-ProgrammingBook | 2-FictionBook | 3-NovelBook ): ");
+            int choice = Integer.parseInt(input7.nextLine());
+            if (choice == 1) {
+                book = new ProgrammingBook(bookId, bookName, author, publishYear, amount, price, "Java", "fds");
+            } else if (choice == 2) {
+                book = new FictionBook(bookId, bookName, author, publishYear, amount, price, "Java");
+            } else if (choice == 3) {
+                book = new NovelBook(bookId, bookName, author, publishYear, amount, price, "Java");
+            }
+        } catch (Exception e) {
+            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
+            System.out.println("_______________________________________________");
+            creatNewBook();
+        }
+        return book;
     }
 }

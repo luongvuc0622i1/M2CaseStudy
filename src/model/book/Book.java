@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public abstract class Book implements Serializable {
     private String bookId;
-    private String bookNamme;
+    private String bookName;
     private String author;
     private int publishYear;
     private int amount;
@@ -15,7 +15,7 @@ public abstract class Book implements Serializable {
 
     public Book(String bookId, String bookNamme, String author, int publishYear, int amount, int price) {
         this.bookId = bookId;
-        this.bookNamme = bookNamme;
+        this.bookName = bookNamme;
         this.author = author;
         this.publishYear = publishYear;
         this.amount = amount;
@@ -30,12 +30,12 @@ public abstract class Book implements Serializable {
         this.bookId = bookId;
     }
 
-    public String getBookNamme() {
-        return bookNamme;
+    public String getBookName() {
+        return bookName;
     }
 
-    public void setBookNamme(String bookNamme) {
-        this.bookNamme = bookNamme;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
     public String getAuthor() {
@@ -74,7 +74,7 @@ public abstract class Book implements Serializable {
     public String toString() {
         return "Book{" +
                 "bookId='" + bookId + '\'' +
-                ", bookNamme='" + bookNamme + '\'' +
+                ", bookName='" + bookName + '\'' +
                 ", author='" + author + '\'' +
                 ", publishYear=" + publishYear +
                 ", amount=" + amount +
