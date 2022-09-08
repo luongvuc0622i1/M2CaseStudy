@@ -4,6 +4,7 @@ import model.order.Order;
 import storage.IGenericReadWriteData;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OrderManager {
@@ -34,5 +35,17 @@ public class OrderManager {
         orderList = readWriteData.readData();
         orderList.remove(index);
         readWriteData.writeData(orderList);
+    }
+
+    public List<Order> displayCheckTime(Date checkTime) {
+        orderList = readWriteData.readData();
+        List<Order> orderCheckList = new ArrayList<>();
+        boolean check = false;
+        for (int i = 0 ; i < orderList.size(); i++) {
+            if (orderList.get(i).getEndTime().compareTo(checkTime) < 0) {
+                orderCheckList.add(orderList.get(i));
+            }
+        }
+        return orderCheckList;
     }
 }

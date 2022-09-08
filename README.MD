@@ -47,7 +47,7 @@
 			* ReadWriteFileExcel implements IReadWriteData
 
 	* views:
-		* Main
+		* Client
 		* system: RunByManager, RunByMember
 
 ## Các chức năng của thư viện:
@@ -60,6 +60,7 @@
 		6. In ra list order
 		7. Sắp xếp danh sách trên theo: tên người đọc, số lượng đầu sách giảm dần
 		8. Tìm kiếm và hiển thị Order theo tên người đọc
+        9. Hiện ra danh sách các order hết hạn mượn và thời gian nhập
 	* (Member) Người mượn:
 		1. Login/Đăng ký tài khoản/Đăng xuất
 		2. Sửa thông tin cá nhân member

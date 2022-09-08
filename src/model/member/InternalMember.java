@@ -12,8 +12,8 @@ public class InternalMember extends Member implements Serializable {
         this.group = group;
     }
 
-    public InternalMember(String memberId, String passport, String memberName, int sex, String address, String phone, int group) {
-        super(memberId, passport, memberName, sex, address, phone);
+    public InternalMember(String memberId, String passport, String memberName, int sex, String address, String phone, String password, int group) {
+        super(memberId, passport, memberName, sex, address, phone, password);
         this.group = group;
     }
 

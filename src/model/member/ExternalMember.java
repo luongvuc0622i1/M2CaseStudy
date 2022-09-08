@@ -12,8 +12,8 @@ public class ExternalMember extends Member implements Serializable, IDepositMone
         this.maxBorrow = maxBorrow;
     }
 
-    public ExternalMember(String memberId, String passport, String memberName, int sex, String address, String phone, int maxBorrow) {
-        super(memberId, passport, memberName, sex, address, phone);
+    public ExternalMember(String memberId, String passport, String memberName, int sex, String address, String phone, String password, int maxBorrow) {
+        super(memberId, passport, memberName, sex, address, phone, password);
         this.maxBorrow = maxBorrow;
     }
 

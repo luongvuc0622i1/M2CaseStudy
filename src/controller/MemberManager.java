@@ -35,4 +35,14 @@ public class MemberManager {
         memberList.remove(index);
         readWriteData.writeData(memberList);
     }
+
+    public static boolean isMember(String phone, String password) {
+        boolean result = false;
+        for (Member member : memberList) {
+            if (phone.equals(member.getPhone()) && password.equals(member.getPassword())) {
+                result = true;
+            }
+        }
+        return result;
+    }
 }

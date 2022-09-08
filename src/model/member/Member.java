@@ -9,17 +9,19 @@ public abstract class Member implements Serializable {
     private int sex;
     private String address;
     private String phone;
+    private String password;
 
     public Member() {
     }
 
-    public Member(String memberId, String passport, String memberName, int sex, String address, String phone) {
+    public Member(String memberId, String passport, String memberName, int sex, String address, String phone, String password) {
         this.memberId = memberId;
         this.passport = passport;
         this.memberName = memberName;
         this.sex = sex;
         this.address = address;
         this.phone = phone;
+        this.password = password;
     }
 
     public String getMemberId() {
@@ -78,6 +80,14 @@ public abstract class Member implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
