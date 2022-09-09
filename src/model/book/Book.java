@@ -2,7 +2,7 @@ package model.book;
 
 import java.io.Serializable;
 
-public abstract class Book implements Serializable {
+public abstract class Book implements Serializable, Comparable<Book> {
     private String bookId;
     private String bookName;
     private String author;
@@ -79,5 +79,11 @@ public abstract class Book implements Serializable {
                 ", publishYear=" + publishYear +
                 ", amount=" + amount +
                 ", price=" + price;
+    }
+
+    @Override
+    public int compareTo(Book o) {
+        int a = this.getBookId().charAt(0) - o.getBookId().charAt(0);
+        return a;
     }
 }

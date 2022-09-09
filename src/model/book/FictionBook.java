@@ -28,7 +28,7 @@ public class FictionBook extends Book implements Serializable {
     @Override
     public String toString() {
         return super.toString() +
-                "category='" + category + '\'' +
+                " ,category='" + category + '\'' +
                 '}';
     }
 }

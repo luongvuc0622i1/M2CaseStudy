@@ -7,6 +7,7 @@ import model.book.Book;
 import model.member.Member;
 import model.order.Order;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Client {
@@ -15,4 +16,14 @@ public class Client {
         Login login = new Login();
         login.loginSystem();
     }
+
+//    public static void clrscr(){
+//        //Clears Screen in java
+//        try {
+//            if (System.getProperty("os.name").contains("Windows"))
+//                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+//            else
+//                Runtime.getRuntime().exec("clear");
+//        } catch (IOException | InterruptedException ex) {}
+//    }
 }

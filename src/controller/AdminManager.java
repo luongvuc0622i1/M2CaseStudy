@@ -1,5 +1,6 @@
 package controller;
 
+import model.book.Book;
 import model.member.InternalMember;
 import model.member.Member;
 import storage.IGenericReadWriteData;
@@ -50,5 +51,16 @@ public class AdminManager {
             }
         }
         return result;
+    }
+
+    public void display() {
+        adminList = readWriteData.readData();
+        if(adminList.isEmpty()){
+            System.out.println("Thư viện không có admin!");
+        } else {
+            for (Member member : adminList ) {
+                System.out.println(member);
+            }
+        }
     }
 }

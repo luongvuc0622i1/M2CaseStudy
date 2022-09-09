@@ -1,5 +1,6 @@
 package controller;
 
+import model.book.Book;
 import model.order.Order;
 import storage.IGenericReadWriteData;
 
@@ -14,7 +15,7 @@ public class OrderManager {
     public OrderManager() {
     }
 
-    public void addNewMember(Order order) {
+    public void addNewOrder(Order order) {
         orderList = readWriteData.readData();
         orderList.add(order);
         readWriteData.writeData(orderList);
@@ -47,5 +48,16 @@ public class OrderManager {
             }
         }
         return orderCheckList;
+    }
+
+    public void display() {
+        orderList = readWriteData.readData();
+        if(orderList.isEmpty()){
+            System.out.println("Chưa có phiếu mượn nào!");
+        } else {
+            for (Order order : orderList) {
+                System.out.println(order);
+            }
+        }
     }
 }

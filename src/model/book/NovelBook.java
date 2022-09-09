@@ -28,7 +28,7 @@ public class NovelBook extends Book implements Serializable {
     @Override
     public String toString() {
         return super.toString() +
-                "original='" + original + '\'' +
+                " ,original='" + original + '\'' +
                 '}';
     }
 }

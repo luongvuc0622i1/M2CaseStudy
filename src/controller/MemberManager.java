@@ -1,5 +1,8 @@
 package controller;
 
+import model.book.Book;
+import model.member.ExternalMember;
+import model.member.InternalMember;
 import model.member.Member;
 import storage.IGenericReadWriteData;
 
@@ -9,6 +12,10 @@ import java.util.List;
 public class MemberManager {
     private static IGenericReadWriteData readWriteData = storage.member_ReadWriteData.ReadWriteFile.getInstance();
     public static List<Member> memberList = new ArrayList<>();
+    static {
+        Member member = new ExternalMember("CG001", "027098000271", "Vux Hieenf Luowng", 0, "HN", "0854579867", "123", 5);
+        memberList.add(member);
+    }
 
     public MemberManager() {
     }
@@ -44,5 +51,16 @@ public class MemberManager {
             }
         }
         return result;
+    }
+
+    public void display() {
+        memberList = readWriteData.readData();
+        if(memberList.isEmpty()){
+            System.out.println("Thư viện chưa có thành viên nào!");
+        } else {
+            for (Member member : memberList) {
+                System.out.println(member);
+            }
+        }
     }
 }
