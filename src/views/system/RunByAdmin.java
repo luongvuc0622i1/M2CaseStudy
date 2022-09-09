@@ -69,9 +69,7 @@ public class RunByAdmin {
 //                        menuEditMember();
                         break;
                     case 6:
-//                        adminManager.display();
-                        memberManager.display();
-//                        menuShowMember();
+                        menuShowMember();
                         break;
                     case 7:
 //                        Order order = creatNewOrder();
@@ -383,5 +381,41 @@ public class RunByAdmin {
             member = new InternalMember(memberId, passport, memberName, sex, address, phone, password, group);
         }
         return member;
+    }
+
+    private static void menuShowMember() {
+        System.out.println("╔=============================================╗");
+        System.out.println("║                Menu Show Member             ║");
+        System.out.println("╠=============================================╣");
+        System.out.println("║<> [1]. Hiển thị danh sách admin             ║");
+        System.out.println("║<> [2]. Hiển thị thành viên sắp xếp theo ID  ║");
+        System.out.println("║<> [3]. Hiển thị thành viên sắp xếp theo TÊN ║");
+        System.out.println("║<> [0]. Thoát menu hiển thị                  ║");
+        System.out.println("╚=============================================╝");
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
+            int choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    adminManager.display();
+                    break;
+                case 2:
+                    memberManager.sortById();
+                    break;
+                case 3:
+                    memberManager.sortByName();
+                    break;
+                case 0:
+                    menuOfAdmin();
+                    break;
+                default:
+                    System.out.println("[❌] Không có lựa chọn trên");
+            }
+        } catch (Exception e) {
+            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
+            System.out.println("_______________________________________________");
+        }
+        menuShowMember();
     }
 }
