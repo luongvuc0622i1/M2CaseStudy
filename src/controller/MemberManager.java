@@ -1,11 +1,7 @@
 package controller;
 
-import controller.comparator.comparatorBook.BookIdComparator;
 import controller.comparator.comparatorMember.MemberIdComparator;
 import controller.comparator.comparatorMember.MemberNameComparator;
-import model.book.Book;
-import model.member.ExternalMember;
-import model.member.InternalMember;
 import model.member.Member;
 import storage.IGenericReadWriteData;
 
@@ -31,14 +27,26 @@ public class MemberManager {
         readWriteData.writeData(memberList, pathOut);
     }
 
-    public void editMemberById(int index, Member member) {
+    public void editMemberByMemberId(String memberId, Member member) {
         memberList = readWriteData.readData();
+        int index = -1;
+        for (int i = 0; i < memberList.size(); i++) {
+            if (memberId.equals(memberList.get(i).getMemberId())) {
+                index = i;
+            }
+        }
         memberList.set(index, member);
         readWriteData.writeData(memberList);
     }
 
-    public void removeMemberById(int index) {
+    public void removeMemberByMemberId(String memberId) {
         memberList = readWriteData.readData();
+        int index = -1;
+        for (int i = 0; i < memberList.size(); i++) {
+            if (memberId.equals(memberList.get(i).getMemberId())) {
+                index = i;
+            }
+        }
         memberList.remove(index);
         readWriteData.writeData(memberList);
     }

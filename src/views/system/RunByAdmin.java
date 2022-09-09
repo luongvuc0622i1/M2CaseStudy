@@ -66,7 +66,7 @@ public class RunByAdmin {
                         menuAddMember();
                         break;
                     case 5:
-//                        menuEditMember();
+                        menuEditMember();
                         break;
                     case 6:
                         menuShowMember();
@@ -381,6 +381,59 @@ public class RunByAdmin {
             member = new InternalMember(memberId, passport, memberName, sex, address, phone, password, group);
         }
         return member;
+    }
+
+    private static void menuEditMember() {
+        System.out.println("╔=============================================╗");
+        System.out.println("║                Menu Edit Member             ║");
+        System.out.println("╠=============================================╣");
+        System.out.println("║<> [1]. Sửa thành viên đã có                 ║");
+        System.out.println("║<> [2]. Xoá thành viên đã có                 ║");
+        System.out.println("║<> [0]. Thoát menu sửa sách                  ║");
+        System.out.println("╚=============================================╝");
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
+            int choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    editMember();
+                    break;
+                case 2:
+                    removeMember();
+                    break;
+                case 0:
+                    menuOfAdmin();
+                    break;
+                default:
+                    System.out.println("[❌] Không có lựa chọn trên");
+            }
+        } catch (Exception e) {
+            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
+            System.out.println("_______________________________________________");
+        }
+        menuEditMember();
+    }
+
+    private static void editMember() {
+        String memberId;
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Nhập vào mã thành viên: ");
+            memberId = scanner.nextLine();
+        } while (!validate.validateMemberID(memberId));
+        Member member = creatNewMember();
+        memberManager.editMemberByMemberId(memberId, member);
+    }
+
+    private static void removeMember() {
+        String memberId;
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Nhập vào mã thành viên: ");
+            memberId = scanner.nextLine();
+        } while (!validate.validateMemberID(memberId));
+        memberManager.removeMemberByMemberId(memberId);
     }
 
     private static void menuShowMember() {
