@@ -17,7 +17,7 @@ public class MemberManager {
     }
 
     public void addNewMember(Member member) {
-        memberList = readWriteData.readData();
+//        memberList = readWriteData.readData();
         memberList.add(member);
         readWriteData.writeData(memberList);
     }
@@ -40,6 +40,7 @@ public class MemberManager {
     }
 
     public static boolean isMember(String phone, String password) {
+        memberList = readWriteData.readData();
         boolean result = false;
         for (Member member : memberList) {
             if (phone.equals(member.getPhone()) && password.equals(member.getPassword())) {

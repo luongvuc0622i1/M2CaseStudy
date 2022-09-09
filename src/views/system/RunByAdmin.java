@@ -69,6 +69,8 @@ public class RunByAdmin {
 //                        menuEditMember();
                         break;
                     case 6:
+//                        adminManager.display();
+                        memberManager.display();
 //                        menuShowMember();
                         break;
                     case 7:
