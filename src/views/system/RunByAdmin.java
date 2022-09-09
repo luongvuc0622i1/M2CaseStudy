@@ -1,12 +1,15 @@
 package views.system;
 
+import controller.AdminManager;
 import controller.BookManager;
-import controller.OrderManager;
-import controller.comparator.comparatorBook.BookNameComparator;
+import controller.MemberManager;
 import model.book.Book;
 import model.book.FictionBook;
 import model.book.NovelBook;
 import model.book.ProgrammingBook;
+import model.member.ExternalMember;
+import model.member.InternalMember;
+import model.member.Member;
 import storage.IGenericReadWriteData;
 import storage.admin_ReadWriteData.ReadWriteFile;
 import views.Login;
@@ -16,11 +19,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class RunByAdmin {
+    public static final int MAX_BORROW = 5;
     private static IGenericReadWriteData readWriteData = ReadWriteFile.getInstance();
     private static Validate validate = Validate.getInstance();
 
     private static BookManager bookManager = new BookManager();
-    private static OrderManager orderManager = new OrderManager();
+    private static AdminManager adminManager = new AdminManager();
+    private static MemberManager memberManager = new MemberManager();
     private static List<Book> bookList = BookManager.bookList;
 //    private static List<Member> memberList = MemberManager.memberList;
 //    private static List<Order> orderList = OrderManager.orderList;
@@ -58,7 +63,7 @@ public class RunByAdmin {
                         menuShowBook();
                         break;
                     case 4:
-//                        menuAddMember();
+                        menuAddMember();
                         break;
                     case 5:
 //                        menuEditMember();
@@ -186,8 +191,8 @@ public class RunByAdmin {
         } catch (Exception e) {
             System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
             System.out.println("_______________________________________________");
-            menuEditBook();
         }
+        menuEditBook();
     }
 
     private static void editBook() {
@@ -243,7 +248,138 @@ public class RunByAdmin {
         } catch (Exception e) {
             System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
             System.out.println("_______________________________________________");
-            menuShowBook();
         }
+        menuShowBook();
+    }
+
+    private static void menuAddMember() {
+        System.out.println("╔=============================================╗");
+        System.out.println("║                Menu Add Member              ║");
+        System.out.println("╠=============================================╣");
+        System.out.println("║<> [1]. Thêm admin                           ║");
+        System.out.println("║<> [2]. Thêm thành viên                      ║");
+        System.out.println("║<> [0]. Thoát menu add member                ║");
+        System.out.println("╚=============================================╝");
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
+            int choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    Member admin = creatNewAdmin();
+                    adminManager.addNewAdmin(admin);
+                    break;
+                case 2:
+                    Member member = creatNewMember();
+                    memberManager.addNewMember(member);
+                    break;
+                case 0:
+                    menuOfAdmin();
+                    break;
+                default:
+                    System.out.println("[❌] Không có lựa chọn trên");
+            }
+        } catch (Exception e) {
+            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
+            System.out.println("_______________________________________________");
+        }
+        menuAddMember();
+    }
+
+    private static Member creatNewAdmin() {
+        Member admin = null;
+        try {
+            admin = inputInformationAdmin();
+        } catch (Exception e) {
+            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
+            System.out.println("_______________________________________________");
+            creatNewAdmin();
+        } finally {
+            return admin;
+        }
+    }
+
+    private static Member inputInformationAdmin() {
+        Member admin = null;
+        System.out.println("Nhập thông tin 1 admin mới");
+        System.out.println("_______________________________________________");
+        String adminId;
+        do {
+            Scanner input1 = new Scanner(System.in);
+            System.out.print("Nhập vào mã admin: ");
+            adminId = input1.nextLine();
+        } while (!validate.validateAdminID(adminId));
+        Scanner input2 = new Scanner(System.in);
+        System.out.print("Nhập vào số căn cước: ");
+        String passport = input2.nextLine();
+        Scanner input3 = new Scanner(System.in);
+        System.out.print("Nhập vào tên admin: ");
+        String adminName = input3.nextLine();
+        Scanner input4 = new Scanner(System.in);
+        System.out.print("Nhập vào giới tính ( 0-Nam | 1-Nữ ): ");
+        int sex = Integer.parseInt(input4.nextLine());
+        Scanner input5 = new Scanner(System.in);
+        System.out.print("Nhập vào địa chỉ admin: ");
+        String address = input5.nextLine();
+        Scanner input6 = new Scanner(System.in);
+        System.out.print("Nhập vào số điện thoại admin: ");
+        String phone = input6.nextLine();
+        Scanner input7 = new Scanner(System.in);
+        System.out.print("Nhập vào mật khẩu: ");
+        String password = input7.nextLine();
+        admin = new InternalMember(adminId, passport, adminName, sex, address, phone, password, 0);
+        return admin;
+    }
+
+    private static Member creatNewMember() {
+        Member member = null;
+        try {
+            member = inputInformationMember();
+        } catch (Exception e) {
+            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
+            System.out.println("_______________________________________________");
+            creatNewAdmin();
+        } finally {
+            return member;
+        }
+    }
+
+    private static Member inputInformationMember() {
+        Member member = null;
+        System.out.println("Nhập thông tin 1 thành viên mới");
+        System.out.println("_______________________________________________");
+        String memberId;
+        do {
+            Scanner input1 = new Scanner(System.in);
+            System.out.print("Nhập vào mã thành viên: ");
+            memberId = input1.nextLine();
+        } while (!validate.validateMemberID(memberId));
+        Scanner input2 = new Scanner(System.in);
+        System.out.print("Nhập vào số căn cước: ");
+        String passport = input2.nextLine();
+        Scanner input3 = new Scanner(System.in);
+        System.out.print("Nhập vào tên thành viên: ");
+        String memberName = input3.nextLine();
+        Scanner input4 = new Scanner(System.in);
+        System.out.print("Nhập vào giới tính ( 0-Nam | 1-Nữ ): ");
+        int sex = Integer.parseInt(input4.nextLine());
+        Scanner input5 = new Scanner(System.in);
+        System.out.print("Nhập vào địa chỉ thành viên: ");
+        String address = input5.nextLine();
+        Scanner input6 = new Scanner(System.in);
+        System.out.print("Nhập vào số điện thoại thành viên: ");
+        String phone = input6.nextLine();
+        Scanner input7 = new Scanner(System.in);
+        System.out.print("Nhập vào mật khẩu: ");
+        String password = input7.nextLine();
+        Scanner input8 = new Scanner(System.in);
+        System.out.print("Bạn có phải là học viên CodeGym không ( 0-Người ngoài | 1-Học viên ): ");
+        int group = Integer.parseInt(input8.nextLine());
+        if (group == 0) {
+            member = new ExternalMember(memberId, passport, memberName, sex, address, phone, password, MAX_BORROW);
+        } else if (group == 1) {
+            member = new InternalMember(memberId, passport, memberName, sex, address, phone, password, group);
+        }
+        return member;
     }
 }

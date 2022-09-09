@@ -11,6 +11,8 @@ public class Validate {
     private static final String EMAIL_REGEX = "^[a-zA-Z][a-zA-Z0-9]{0,9}[._-]?[a-zA-Z0-9]{1,10}@[a-z]+\\.(com|vn)+$";
 
     private static final String ID_BOOK = "CGMD-Book-[0-9]{1,3}";
+    private static final String ID_ADMIN = "CGMD-Admin-[0-9]{1,3}";
+    private static final String ID_MEMBER = "CGMD-Member-[0-9]{1,3}";
     private static final String ID_DRAWSTUFF = "DS_[0-9]{1,3}";
     private static final String ID_BEAUTISTUFF = "BS_[0-9]{1,3}";
 
@@ -52,6 +54,19 @@ public class Validate {
         Matcher matcher = pattern.matcher(regex);
         return matcher.matches();
     }
+
+    public boolean validateAdminID(String regex){
+        Pattern pattern = Pattern.compile(ID_ADMIN);
+        Matcher matcher = pattern.matcher(regex);
+        return matcher.matches();
+    }
+
+    public boolean validateMemberID(String regex){
+        Pattern pattern = Pattern.compile(ID_MEMBER);
+        Matcher matcher = pattern.matcher(regex);
+        return matcher.matches();
+    }
+
     public boolean validateDrawStuffID(String regex){
         Pattern pattern = Pattern.compile(ID_DRAWSTUFF);
         Matcher matcher = pattern.matcher(regex);

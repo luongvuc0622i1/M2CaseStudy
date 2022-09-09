@@ -75,7 +75,7 @@ public class BookManager {
 
     public void sortByPrice() {
         bookList = readWriteData.readData();
-        System.out.println("Sắp xếp theo thuộc tính id:");
+        System.out.println("Sắp xếp theo thuộc tính giá:");
         Collections.sort(bookList, new BookPriceComparator());
         for (Book book : bookList) {
             System.out.println(book);
