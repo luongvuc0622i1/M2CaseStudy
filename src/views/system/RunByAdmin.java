@@ -12,8 +12,6 @@ import model.member.ExternalMember;
 import model.member.InternalMember;
 import model.member.Member;
 import model.order.Order;
-import storage.IGenericReadWriteData;
-import storage.admin_ReadWriteData.ReadWriteFile;
 import views.Validate;
 
 import java.util.Calendar;
@@ -27,17 +25,12 @@ import static views.Client.loginSystem;
 
 public class RunByAdmin {
     public static final int MAX_BORROW = 5;
-    private static IGenericReadWriteData readWriteData = ReadWriteFile.getInstance();
     private static Validate validate = Validate.getInstance();
 
     private static BookManager bookManager = new BookManager();
     private static AdminManager adminManager = new AdminManager();
     private static MemberManager memberManager = new MemberManager();
     private static OrderManager orderManager = new OrderManager();
-//    private static List<Book> bookList = BookManager.bookList;
-//    private static List<Member> memberList = MemberManager.memberList;
-//    private static List<Order> orderList = OrderManager.orderList;
-//    IGenericReadWriteData readWriteData = ReadWriteFile.getInstance();
     public static void menuOfAdmin() {
         try {
             do {
@@ -108,7 +101,7 @@ public class RunByAdmin {
         }
     }
 
-    private static Book creatNewBook() {
+    public static Book creatNewBook() {
         Book book = null;
         try {
             book = inputInformationBook();
@@ -224,7 +217,7 @@ public class RunByAdmin {
         bookManager.removeBookByBookId(bookId);
     }
 
-    private static void menuShowBook() {
+    public static void menuShowBook() {
         System.out.println("╔=============================================╗");
         System.out.println("║                Menu Show Book               ║");
         System.out.println("╠=============================================╣");
@@ -339,7 +332,7 @@ public class RunByAdmin {
         return admin;
     }
 
-    private static Member creatNewMember() {
+    public static Member creatNewMember() {
         Member member = null;
         try {
             member = inputInformationMember();
@@ -550,7 +543,7 @@ public class RunByAdmin {
         return order;
     }
 
-    private static Date inputStartTime() {
+    public static Date inputStartTime() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Nhập ngày, tháng, năm mượn sách:");
         int day = scanner.nextInt();
@@ -562,7 +555,7 @@ public class RunByAdmin {
         return startTime;
     }
 
-    private static Date inputEndTime() {
+    public static Date inputEndTime() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Nhập ngày, tháng, năm trả sách:");
         int day = scanner.nextInt();

@@ -73,6 +73,17 @@ public class MemberManager {
         return result;
     }
 
+    public String exportMemberId(String phone, String password) {
+        memberList = readWriteData.readData();
+        String memberId = null;
+        for (Member member : memberList) {
+            if (phone.equals(member.getPhone()) && password.equals(member.getPassword())) {
+                memberId = member.getMemberId();
+            }
+        }
+        return memberId;
+    }
+
     public void sortById() {
         memberList = readWriteData.readData();
         System.out.println("Sắp xếp theo thuộc tính id:");

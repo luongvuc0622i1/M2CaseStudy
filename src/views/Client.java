@@ -86,7 +86,7 @@ public class Client {
             } else if (isMember(phone, password)) {
                 System.out.println("[\uD83D\uDD13] Đặng nhập hệ thống bởi MEMBER thành công !!!");
                 System.out.println("_______________________________________________");
-                RunByMember.menuOfMember();
+                RunByMember.menuOfMember(phone, password);
             } else {
                 throw new IndexOutOfBoundsException();
             }

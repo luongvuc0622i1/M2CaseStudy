@@ -97,4 +97,13 @@ public class OrderManager {
             }
         }
     }
+
+    public void showBorrowingBook(String memberId) {
+        orderList = readWriteData.readData();
+        for (Order order : orderList) {
+            if (order.getMember().getMemberId().equals(memberId)) {
+                System.out.println(order.getBook());
+            }
+        }
+    }
 }
