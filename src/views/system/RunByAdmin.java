@@ -18,6 +18,7 @@ import views.Validate;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import static controller.BookManager.bookList;
@@ -86,11 +87,10 @@ public class RunByAdmin {
                         removeOrder();
                         break;
                     case 9:
-//                        new OrderManager().display();
                         menuShowOrder();
                         break;
                     case 10:
-//                        menuShowCheckOrder();
+                        showCheckTimeOrder();
                         break;
                     case 0:
                         System.out.println("[\uD83D\uDD10] Đã thoát khỏi hệ thống ADMIN !!!");
@@ -574,6 +574,18 @@ public class RunByAdmin {
         return endTime;
     }
 
+    public static Date inputCheckTime() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nhập ngày, tháng, năm mốc kiểm tra:");
+        int day = scanner.nextInt();
+        int month = scanner.nextInt();
+        int year = scanner.nextInt();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month - 1, day);
+        Date checkTime = calendar.getTime();
+        return checkTime;
+    }
+
     private static void removeOrder() {
         try {
             Order order = null;
@@ -627,5 +639,20 @@ public class RunByAdmin {
             System.out.println("_______________________________________________");
         }
         menuShowOrder();
+    }
+
+    private static void showCheckTimeOrder() {
+        try {
+            Date checkTime = inputCheckTime();
+            System.out.println("Danh sách các phiếu mượn đã hết hạn:");
+            List<Order> orderCheckList = orderManager.displayCheckTime(checkTime);
+            for (Order order : orderCheckList) {
+                System.out.println(order);
+            }
+        } catch (Exception e) {
+            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
+            System.out.println("_______________________________________________");
+            showCheckTimeOrder();
+        }
     }
 }

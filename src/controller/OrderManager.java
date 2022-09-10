@@ -79,7 +79,6 @@ public class OrderManager {
     public List<Order> displayCheckTime(Date checkTime) {
         orderList = readWriteData.readData();
         List<Order> orderCheckList = new ArrayList<>();
-        boolean check = false;
         for (int i = 0 ; i < orderList.size(); i++) {
             if (orderList.get(i).getEndTime().compareTo(checkTime) < 0) {
                 orderCheckList.add(orderList.get(i));
