@@ -84,7 +84,7 @@ public class RunByAdmin {
                         orderManager.addNewOrder(order);
                         break;
                     case 8:
-//                        menuEditOrder();
+                        removeOrder();
                         break;
                     case 9:
                         new OrderManager().display();
@@ -573,5 +573,24 @@ public class RunByAdmin {
         calendar.set(year, month - 1, day);
         Date endTime = calendar.getTime();
         return endTime;
+    }
+
+    private static void removeOrder() {
+        try {
+            Order order = null;
+            System.out.println("Nhập thông tin 1 phiếu muốn trả");
+            System.out.println("_______________________________________________");
+            String orderId;
+            do {
+                Scanner input1 = new Scanner(System.in);
+                System.out.print("Nhập vào mã phiếu mượn: ");
+                orderId = input1.nextLine();
+            } while (!validate.validateOrderID(orderId));
+            orderManager.removeOrderByOrderId(orderId);
+        } catch (Exception e) {
+            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
+            System.out.println("_______________________________________________");
+            removeOrder();
+        }
     }
 }

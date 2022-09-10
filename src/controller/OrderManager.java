@@ -32,8 +32,14 @@ public class OrderManager {
         readWriteData.writeData(orderList);
     }
 
-    public void removeOrderById(int index) {
+    public void removeOrderByOrderId(String orderId) {
         orderList = readWriteData.readData();
+        int index = -1;
+        for (int i = 0; i < orderList.size(); i++) {
+            if (orderId.equals(orderList.get(i).getOrderId())) {
+                index = i;
+            }
+        }
         orderList.remove(index);
         readWriteData.writeData(orderList);
     }
