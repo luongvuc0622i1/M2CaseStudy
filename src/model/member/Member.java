@@ -1,8 +1,10 @@
 package model.member;
 
+import model.book.Book;
+
 import java.io.Serializable;
 
-public abstract class Member implements Serializable {
+public abstract class Member implements Serializable, Comparable<Member> {
     private String memberId;
     private String passport;
     private String memberName;
@@ -100,5 +102,11 @@ public abstract class Member implements Serializable {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Member o) {
+        int a = this.getMemberId().compareTo(o.getMemberId());
+        return a;
     }
 }

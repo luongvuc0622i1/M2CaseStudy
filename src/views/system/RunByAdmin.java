@@ -14,16 +14,15 @@ import model.member.Member;
 import model.order.Order;
 import storage.IGenericReadWriteData;
 import storage.admin_ReadWriteData.ReadWriteFile;
-import views.Login;
 import views.Validate;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 import static controller.BookManager.bookList;
 import static controller.MemberManager.memberList;
+import static views.Client.loginSystem;
 
 public class RunByAdmin {
     public static final int MAX_BORROW = 5;
@@ -87,8 +86,8 @@ public class RunByAdmin {
                         removeOrder();
                         break;
                     case 9:
-                        new OrderManager().display();
-//                        menuShowOrder();
+//                        new OrderManager().display();
+                        menuShowOrder();
                         break;
                     case 10:
 //                        menuShowCheckOrder();
@@ -96,7 +95,7 @@ public class RunByAdmin {
                     case 0:
                         System.out.println("[\uD83D\uDD10] Đã thoát khỏi hệ thống ADMIN !!!");
                         System.out.println("_______________________________________________");
-                        new Login().loginSystem();
+                        loginSystem();
                         break;
                     default:
                         System.out.println("[❌] Không có lựa chọn trên");
@@ -592,5 +591,41 @@ public class RunByAdmin {
             System.out.println("_______________________________________________");
             removeOrder();
         }
+    }
+
+    private static void menuShowOrder() {
+        System.out.println("╔=============================================╗");
+        System.out.println("║               Menu Show Order               ║");
+        System.out.println("╠=============================================╣");
+        System.out.println("║<> [1]. Hiển thị danh sách sắp xếp theo ID   ║");
+        System.out.println("║<> [2]. Hiển thị danh sách sắp xếp theo BOOK ║");
+        System.out.println("║<> [3]. Hiển thị danh sách sắp xếp theo MEMBE║");
+        System.out.println("║<> [0]. Thoát menu hiển thị                  ║");
+        System.out.println("╚=============================================╝");
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
+            int choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    orderManager.sortById();
+                    break;
+                case 2:
+                    orderManager.sortByBook();
+                    break;
+                case 3:
+                    orderManager.sortByMember();
+                    break;
+                case 0:
+                    menuOfAdmin();
+                    break;
+                default:
+                    System.out.println("[❌] Không có lựa chọn trên");
+            }
+        } catch (Exception e) {
+            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
+            System.out.println("_______________________________________________");
+        }
+        menuShowOrder();
     }
 }

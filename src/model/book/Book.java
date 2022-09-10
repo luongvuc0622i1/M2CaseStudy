@@ -83,7 +83,7 @@ public abstract class Book implements Serializable, Comparable<Book> {
 
     @Override
     public int compareTo(Book o) {
-        int a = this.getBookId().charAt(0) - o.getBookId().charAt(0);
+        int a = this.getBookId().compareTo(o.getBookId());
         return a;
     }
 }

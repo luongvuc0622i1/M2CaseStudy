@@ -11,16 +11,16 @@ public class AdminManager {
     private static IGenericReadWriteData readWriteData = storage.admin_ReadWriteData.ReadWriteFile.getInstance();
     public static List<Member> adminList = new ArrayList<>();
 
-    static {
-        Member member = new InternalMember("CGMD-Admin-001", "027098000271", "Vũ Hiền Lương", 0, "Cầu Giấy", "0915814526", "admin", 1);
-        adminList.add(member);
-    }
+//    static {
+//        Member member = new InternalMember("CGMD-Admin-001", "027098000271", "Vũ Hiền Lương", 0, "Cầu Giấy", "0915814526", "admin", 1);
+//        adminList.add(member);
+//    }
 
     public AdminManager() {
     }
 
     public void addNewAdmin(Member member) {
-        adminList = readWriteData.readData();
+//        adminList = readWriteData.readData();
         adminList.add(member);
         readWriteData.writeData(adminList);
     }

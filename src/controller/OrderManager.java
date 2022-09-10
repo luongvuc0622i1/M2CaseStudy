@@ -1,10 +1,15 @@
 package controller;
 
+import controller.comparator.comparatorBook.BookIdComparator;
+import controller.comparator.comparatorOrder.OrderBookComparator;
+import controller.comparator.comparatorOrder.OrderIdComparator;
+import controller.comparator.comparatorOrder.OrderMemberComparator;
 import model.book.Book;
 import model.order.Order;
 import storage.IGenericReadWriteData;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +47,33 @@ public class OrderManager {
         }
         orderList.remove(index);
         readWriteData.writeData(orderList);
+    }
+
+    public void sortById() {
+        orderList = readWriteData.readData();
+        System.out.println("Sắp xếp theo thuộc tính id:");
+        Collections.sort(orderList, new OrderIdComparator());
+        for (Order order : orderList) {
+            System.out.println(order);
+        }
+    }
+
+    public void sortByBook() {
+        orderList = readWriteData.readData();
+        System.out.println("Sắp xếp theo thuộc tính book:");
+        Collections.sort(orderList, new OrderBookComparator());
+        for (Order order : orderList) {
+            System.out.println(order);
+        }
+    }
+
+    public void sortByMember() {
+        orderList = readWriteData.readData();
+        System.out.println("Sắp xếp theo thuộc tính member:");
+        Collections.sort(orderList, new OrderMemberComparator());
+        for (Order order : orderList) {
+            System.out.println(order);
+        }
     }
 
     public List<Order> displayCheckTime(Date checkTime) {
