@@ -1,5 +1,7 @@
 package views;
 
+import controller.MemberManager;
+import model.member.Member;
 import views.system.RunByAdmin;
 import views.system.RunByMember;
 
@@ -41,7 +43,8 @@ public class Login {
                     login();
                     break;
                 case 2:
-                    registerAccountUser();
+                    Member member = (new RunByAdmin()).creatNewMenber();
+                    new MemberManager().addNewMember(member);
                     break;
                 case 0:
                     System.out.println("____________Thoát khỏi chương trình____________");

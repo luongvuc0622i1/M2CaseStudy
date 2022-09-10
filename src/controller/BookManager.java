@@ -18,6 +18,17 @@ public class BookManager {
     public BookManager() {
     }
 
+    public static boolean checkBook(String bookId) {
+        bookList = readWriteData.readData();
+        boolean check = false;
+        for (Book book : bookList) {
+            if (bookId.equals(book.getBookId())) {
+                return true;
+            }
+        }
+        return check;
+    }
+
     public void addNewBook(Book book) {
         bookList = readWriteData.readData();
         bookList.add(book);

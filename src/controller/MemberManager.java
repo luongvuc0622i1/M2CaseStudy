@@ -16,6 +16,17 @@ public class MemberManager {
     public MemberManager() {
     }
 
+    public static boolean checkMember(String memberId) {
+        memberList = readWriteData.readData();
+        boolean check = false;
+        for (Member member : memberList) {
+            if (memberId.equals(member.getMemberId())) {
+                check = true;
+            }
+        }
+        return check;
+    }
+
     public void addNewMember(Member member) {
         memberList = readWriteData.readData();
         memberList.add(member);

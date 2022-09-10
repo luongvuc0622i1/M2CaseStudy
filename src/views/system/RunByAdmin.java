@@ -3,6 +3,7 @@ package views.system;
 import controller.AdminManager;
 import controller.BookManager;
 import controller.MemberManager;
+import controller.OrderManager;
 import model.book.Book;
 import model.book.FictionBook;
 import model.book.NovelBook;
@@ -10,13 +11,19 @@ import model.book.ProgrammingBook;
 import model.member.ExternalMember;
 import model.member.InternalMember;
 import model.member.Member;
+import model.order.Order;
 import storage.IGenericReadWriteData;
 import storage.admin_ReadWriteData.ReadWriteFile;
 import views.Login;
 import views.Validate;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+import static controller.BookManager.bookList;
+import static controller.MemberManager.memberList;
 
 public class RunByAdmin {
     public static final int MAX_BORROW = 5;
@@ -26,7 +33,8 @@ public class RunByAdmin {
     private static BookManager bookManager = new BookManager();
     private static AdminManager adminManager = new AdminManager();
     private static MemberManager memberManager = new MemberManager();
-    private static List<Book> bookList = BookManager.bookList;
+    private static OrderManager orderManager = new OrderManager();
+//    private static List<Book> bookList = BookManager.bookList;
 //    private static List<Member> memberList = MemberManager.memberList;
 //    private static List<Order> orderList = OrderManager.orderList;
 //    IGenericReadWriteData readWriteData = ReadWriteFile.getInstance();
@@ -43,7 +51,7 @@ public class RunByAdmin {
                 System.out.println("║<> [5]. Sửa thông tin người dùng             ║");
                 System.out.println("║<> [6]. In ra danh sách người dùng           ║");
                 System.out.println("║<> [7]. Thêm phiếu mượn mới                  ║");
-                System.out.println("║<> [8]. Sửa phiếu mượn                       ║");
+                System.out.println("║<> [8]. Trả sách (xoá phiếu mượn)            ║");
                 System.out.println("║<> [9]. In ra danh sách phiếu mượn hiện hành ║");
                 System.out.println("║<>[10]. Kiểm tra các phiếu mượn hết hạn      ║");
                 System.out.println("║<> [0]. Đăng xuất                            ║");
@@ -72,13 +80,14 @@ public class RunByAdmin {
                         menuShowMember();
                         break;
                     case 7:
-//                        Order order = creatNewOrder();
-//                        orderManager.addNewOrder(order);
+                        Order order = creatNewOrder();
+                        orderManager.addNewOrder(order);
                         break;
                     case 8:
 //                        menuEditOrder();
                         break;
                     case 9:
+                        new OrderManager().display();
 //                        menuShowOrder();
                         break;
                     case 10:
@@ -338,7 +347,20 @@ public class RunByAdmin {
         } catch (Exception e) {
             System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
             System.out.println("_______________________________________________");
-            creatNewAdmin();
+            creatNewMember();
+        } finally {
+            return member;
+        }
+    }
+
+    public Member creatNewMenber() {
+        Member member = null;
+        try {
+            member = inputInformationMember();
+        } catch (Exception e) {
+            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
+            System.out.println("_______________________________________________");
+            creatNewMenber();
         } finally {
             return member;
         }
@@ -470,5 +492,86 @@ public class RunByAdmin {
             System.out.println("_______________________________________________");
         }
         menuShowMember();
+    }
+
+    private static Order creatNewOrder() {
+        Order order = null;
+        try {
+            do {
+                order = inputInformationOrder();
+            } while (order == null);
+        } catch (Exception e) {
+            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
+            System.out.println("_______________________________________________");
+            creatNewBook();
+        } finally {
+            return order;
+        }
+    }
+
+    private static Order inputInformationOrder() {
+        Order order = null;
+        System.out.println("Nhập thông tin 1 phiếu mượn sách mới");
+        System.out.println("_______________________________________________");
+        String orderId;
+        do {
+            Scanner input1 = new Scanner(System.in);
+            System.out.print("Nhập vào mã phiếu mượn: ");
+            orderId = input1.nextLine();
+        } while (!validate.validateOrderID(orderId));
+        String memberId;
+        do {
+            Scanner input2 = new Scanner(System.in);
+            System.out.print("Nhập vào mã thành viên cần mượn: ");
+            memberId = input2.nextLine();
+        } while (!validate.validateMemberID(memberId));
+        String bookId;
+        do {
+            Scanner input3 = new Scanner(System.in);
+            System.out.print("Nhập vào mã đầu sách muốn mượn: ");
+            bookId = input3.nextLine();
+        } while (!validate.validateBookID(bookId));
+        if (BookManager.checkBook(bookId) && MemberManager.checkMember(memberId)) {
+            Book checkedBook = null;
+            Member checkedMember = null;
+            for (Book book : bookList) {
+                if (bookId.equals(book.getBookId())) {
+                    checkedBook = book;
+                }
+            }
+            for (Member member : memberList) {
+                if (memberId.equals(member.getMemberId())) {
+                    checkedMember = member;
+                }
+            }
+            Date startTime = inputStartTime();
+            Date endTime = inputEndTime();
+            order = new Order(orderId, checkedBook, checkedMember, startTime, endTime);
+        }
+        return order;
+    }
+
+    private static Date inputStartTime() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nhập ngày, tháng, năm mượn sách:");
+        int day = scanner.nextInt();
+        int month = scanner.nextInt();
+        int year = scanner.nextInt();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month - 1, day);
+        Date startTime = calendar.getTime();
+        return startTime;
+    }
+
+    private static Date inputEndTime() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nhập ngày, tháng, năm trả sách:");
+        int day = scanner.nextInt();
+        int month = scanner.nextInt();
+        int year = scanner.nextInt();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month - 1, day);
+        Date endTime = calendar.getTime();
+        return endTime;
     }
 }
